@@ -1067,42 +1067,48 @@
 
     .love-photo {
         position: absolute;
-        /* Menggunakan persentase agar ukurannya mengecil otomatis di HP */
-        width: 18.5%; 
-        aspect-ratio: 1 / 1;
+        width: 18.5%;
+        aspect-ratio: 1;
         border-radius: 10%;
         border: 3.5px solid #ede5dc;
-        background: #44333b;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
         background-size: cover;
         background-position: center;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        cursor: pointer;
-        overflow: hidden;
-        opacity: 0;
-        animation: photoPop .8s forwards;
+        
+        /* Semuanya berawal dari transparan */
+        opacity: 0; 
+        
+        /* Menggunakan cubic-bezier agar ada efek lentur pas nge-pop */
+        animation: loveAssemble .9s cubic-bezier(.34, 1.56, 0.64, 1) forwards;
+        
+        /* Jeda waktu otomatis dapet dari inline style HTML */
+        animation-delay: calc(var(--n) * 0.12s); 
     }
 
-    /* Animasi Pop Efek Teratur */
-    .love-photo:nth-child(n) { animation-delay: calc(0.04s * var(--n, 1)); }
-    .love-photo:nth-child(1) { --n: 1; } .love-photo:nth-child(2) { --n: 2; }
-    .love-photo:nth-child(3) { --n: 3; } .love-photo:nth-child(4) { --n: 4; }
-    .love-photo:nth-child(5) { --n: 5; } .love-photo:nth-child(6) { --n: 6; }
-    .love-photo:nth-child(7) { --n: 7; } .love-photo:nth-child(8) { --n: 8; }
-    .love-photo:nth-child(9) { --n: 9; } .love-photo:nth-child(10) { --n: 10; }
-    .love-photo:nth-child(11) { --n: 11; } .love-photo:nth-child(12) { --n: 12; }
-    .love-photo:nth-child(13) { --n: 13; } .love-photo:nth-child(14) { --n: 14; }
-    .love-photo:nth-child(15) { --n: 15; } .love-photo:nth-child(16) { --n: 16; }
-    .love-photo:nth-child(17) { --n: 17; } .love-photo:nth-child(18) { --n: 18; }
-    .love-photo:nth-child(19) { --n: 19; } .love-photo:nth-child(20) { --n: 20; }
-    .love-photo:nth-child(21) { --n: 21; } .love-photo:nth-child(22) { --n: 22; }
-    .love-photo:nth-child(23) { --n: 23; } .love-photo:nth-child(24) { --n: 24; }
-    .love-photo:nth-child(25) { --n: 25; } .love-photo:nth-child(26) { --n: 26; }
-    .love-photo:nth-child(27) { --n: 27; }
+    /* Trigger Delay berurutan yang lebih stabil */
+    .love-photo {
+        animation-delay: calc(var(--n) * 0.15s); /* Ubah 0.15s kalau mau lebih cepat/lambat */
+    }
 
-    @keyframes photoPop {
-        0% { opacity: 0; transform: scale(.3) translateY(20px); }
-        100% { opacity: 1; transform: scale(1) translateY(0); }
+    @keyframes loveAssemble {
+        0% {
+            opacity: 0;
+            filter: blur(10px) brightness(0.6);
+            /* Mulai dari bawah, mengecil, dan agak miring sedikit */
+            transform: scale(0.2) translateY(50px) rotate(-10deg);
+        }
+        60% {
+            opacity: 1;
+            filter: blur(0) brightness(1.1);
+            /* Efek overshoot sedikit lebih besar sebelum stabil */
+            transform: scale(1.08) translateY(-5px) rotate(3deg);
+        }
+        100% {
+            opacity: 1;
+            filter: blur(0) brightness(1);
+            /* JANGAN gunakan 'none' karena akan menghapus posisi koordinat p1-p27.
+            Gunakan kombinasi scale(1) agar properti transform di class posisi (.p1, .p2) bisa digabungkan */
+            transform: scale(1); 
+        }
     }
 
     /* Efek Hover Cantik & Menonjol Keluar */
@@ -2124,120 +2130,39 @@
         </h1>
 
         <div class="heart-container">
-          <div
-            class="love-photo p1"
-            style="background-image: url(&quot;img/foto1.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p2"
-            style="background-image: url(&quot;img/foto2.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p3"
-            style="background-image: url(&quot;img/foto5.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p4"
-            style="background-image: url(&quot;img/foto3.jpeg&quot;)"
-          ></div>
+            <div class="love-photo p1" style="--n: 1; background-image: url('img/foto1.jpeg')"></div>
+            <div class="love-photo p2" style="--n: 2; background-image: url('img/foto2.jpeg')"></div>
+            <div class="love-photo p3" style="--n: 3; background-image: url('img/foto5.jpeg')"></div>
+            <div class="love-photo p4" style="--n: 4; background-image: url('img/foto3.jpeg')"></div>
 
-          <div
-            class="love-photo p5"
-            style="background-image: url(&quot;img/foto5.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p6"
-            style="background-image: url(&quot;img/foto6.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p7"
-            style="background-image: url(&quot;img/foto7.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p8"
-            style="background-image: url(&quot;img/foto2.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p9"
-            style="background-image: url(&quot;img/foto4.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p10"
-            style="background-image: url(&quot;img/foto5.jpeg&quot;)"
-          ></div>
+            <div class="love-photo p5" style="--n: 5; background-image: url('img/foto5.jpeg')"></div>
+            <div class="love-photo p6" style="--n: 6; background-image: url('img/foto6.jpeg')"></div>
+            <div class="love-photo p7" style="--n: 7; background-image: url('img/foto7.jpeg')"></div>
+            <div class="love-photo p8" style="--n: 8; background-image: url('img/foto2.jpeg')"></div>
+            <div class="love-photo p9" style="--n: 9; background-image: url('img/foto4.jpeg')"></div>
+            <div class="love-photo p10" style="--n: 10; background-image: url('img/foto5.jpeg')"></div>
 
-          <div
-            class="love-photo p11"
-            style="background-image: url(&quot;img/foto7.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p12"
-            style="background-image: url(&quot;img/foto5.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p13"
-            style="background-image: url(&quot;img/foto1.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p14"
-            style="background-image: url(&quot;img/foto3.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p15"
-            style="background-image: url(&quot;img/foto6.jpeg&quot;)"
-          ></div>
+            <div class="love-photo p11" style="--n: 11; background-image: url('img/foto7.jpeg')"></div>
+            <div class="love-photo p12" style="--n: 12; background-image: url('img/foto5.jpeg')"></div>
+            <div class="love-photo p13" style="--n: 13; background-image: url('img/foto1.jpeg')"></div>
+            <div class="love-photo p14" style="--n: 14; background-image: url('img/foto3.jpeg')"></div>
+            <div class="love-photo p15" style="--n: 15; background-image: url('img/foto6.jpeg')"></div>
 
-          <div
-            class="love-photo p16"
-            style="background-image: url(&quot;img/foto2.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p17"
-            style="background-image: url(&quot;img/foto4.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p18"
-            style="background-image: url(&quot;img/foto5.jpeg&quot;)"
-          ></div>
+            <div class="love-photo p16" style="--n: 16; background-image: url('img/foto2.jpeg')"></div>
+            <div class="love-photo p17" style="--n: 17; background-image: url('img/foto4.jpeg')"></div>
+            <div class="love-photo p18" style="--n: 18; background-image: url('img/foto5.jpeg')"></div>
 
-          <div
-            class="love-photo p19"
-            style="background-image: url(&quot;img/foto6.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p20"
-            style="background-image: url(&quot;img/foto7.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p21"
-            style="background-image: url(&quot;img/foto3.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p22"
-            style="background-image: url(&quot;img/foto1.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p23"
-            style="background-image: url(&quot;img/foto3.jpeg&quot;)"
-          ></div>
+            <div class="love-photo p19" style="--n: 19; background-image: url('img/foto6.jpeg')"></div>
+            <div class="love-photo p20" style="--n: 20; background-image: url('img/foto7.jpeg')"></div>
+            <div class="love-photo p21" style="--n: 21; background-image: url('img/foto3.jpeg')"></div>
+            <div class="love-photo p22" style="--n: 22; background-image: url('img/foto1.jpeg')"></div>
+            <div class="love-photo p23" style="--n: 23; background-image: url('img/foto3.jpeg')"></div>
 
-          <div
-            class="love-photo p24"
-            style="background-image: url(&quot;img/foto7.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p25"
-            style="background-image: url(&quot;img/foto1.jpeg&quot;)"
-          ></div>
-          <div
-            class="love-photo p26"
-            style="background-image: url(&quot;img/foto4.jpeg&quot;)"
-          ></div>
+            <div class="love-photo p24" style="--n: 24; background-image: url('img/foto7.jpeg')"></div>
+            <div class="love-photo p25" style="--n: 25; background-image: url('img/foto1.jpeg')"></div>
+            <div class="love-photo p26" style="--n: 26; background-image: url('img/foto4.jpeg')"></div>
 
-          <div
-            class="love-photo p27"
-            style="background-image: url(&quot;img/foto2.jpeg&quot;)"
-          ></div>
+            <div class="love-photo p27" style="--n: 27; background-image: url('img/foto2.jpeg')"></div>
         </div>
 
         <p style="margin-top: 30px; color: #c7b8bf; font-size: 15px">
@@ -2445,12 +2370,27 @@
     </audio>
 
     <script>
-      function nextScreen(nextId) {
-        document
-          .querySelectorAll(".screen")
-          .forEach((s) => s.classList.remove("active"));
-        document.getElementById(nextId).classList.add("active");
-      }
+    function nextScreen(nextId) {
+    document
+        .querySelectorAll(".screen")
+        .forEach((s) => s.classList.remove("active"));
+    
+    const targetScreen = document.getElementById(nextId);
+    targetScreen.classList.add("active");
+
+    // JIKA pindah ke screen love gallery, reset animasinya agar mulai dari 1 lagi
+    if (nextId === 'screen-love') {
+        const photos = targetScreen.querySelectorAll('.love-photo');
+        photos.forEach((photo) => {
+        // Hapus animasi sebentar, lalu pasang lagi agar browser me-refresh timeline delay-nya
+        photo.style.animation = 'none';
+        // Memaksa browser untuk menerapkan reflow/repaint
+        void photo.offsetWidth; 
+        // Kembalikan animasinya sesuai class CSS
+        photo.style.animation = '';
+        });
+    }
+    }
 
       // 1. Loading Bar Progress
       let progress = 0;
